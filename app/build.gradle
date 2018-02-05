@@ -1,12 +1,11 @@
 //since windows' intellij seems to have issues with sources
 import org.apache.tools.ant.taskdefs.condition.Os
 
-apply plugin: 'application'
 apply plugin: 'java'
 
 def MAIN_TITLE = 'LibraryProject'
 def MAIN_VERSION = '1.0'
-mainClassName = 'com.cesi.library_project.Main'
+def mainClassName = 'com.cesi.library_project.Main'
 
 sourceSets {
     main {
