@@ -4,6 +4,7 @@ import com.cesi.library_project.database.db.LibraryDatabase;
 import com.sun.istack.internal.NotNull;
 import za.co.neilson.sqlite.orm.ObjectModel;
 
+import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import java.util.List;
 
 /**
  * Generic class which takes a class in parameters and manage all the CRUDs operations
- *
+ * <p>
  * It is mandatory to extends it using extends AbstractController<class name like Category>
  *
  * @param <A_MODEL_CLASS> the class name which will be used
@@ -31,10 +32,17 @@ public abstract class AbstractController<A_MODEL_CLASS> implements ICRUD<A_MODEL
 
     /**
      * Get the Class used to implements instances
+     *
      * @return the Class to use to implements instances
      */
     @NotNull
     protected abstract Class<A_MODEL_CLASS> getModelClass();
+
+    public void initModelForDatabase(HashMap<Type, ObjectModel<?, ResultSet, HashMap<String, Object>>> objectModels, LibraryDatabase instance) throws NoSuchFieldException, ClassNotFoundException {
+        objectModels.put(getModelClass(), createJDBCObject(instance));
+    }
+
+    protected abstract ObjectModel<A_MODEL_CLASS,ResultSet,HashMap<String,Object>> createJDBCObject(LibraryDatabase instance) throws NoSuchFieldException, ClassNotFoundException;
 
     /**
      * Init the current Controller

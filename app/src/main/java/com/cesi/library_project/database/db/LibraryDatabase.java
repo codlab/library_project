@@ -1,7 +1,12 @@
 package com.cesi.library_project.database.db;
 
 import com.cesi.library_project.database.controllers.CategoryController;
+import com.cesi.library_project.database.controllers.FilmController;
+import com.cesi.library_project.database.controllers.MetaDataController;
 import com.cesi.library_project.database.models.Category;
+import com.cesi.library_project.database.models.Film;
+import com.cesi.library_project.database.models.MetaData;
+import com.cesi.library_project.database.models.Status;
 import za.co.neilson.sqlite.orm.DatabaseDriverInterface;
 import za.co.neilson.sqlite.orm.DatabaseInfo;
 import za.co.neilson.sqlite.orm.DatabaseModel;
@@ -12,6 +17,7 @@ import za.co.neilson.sqlite.orm.jdbc.JdbcSqliteDatabaseDriverInterface;
 import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 
 public class LibraryDatabase extends DatabaseModel<ResultSet, HashMap<String, Object>> {
@@ -37,9 +43,9 @@ public class LibraryDatabase extends DatabaseModel<ResultSet, HashMap<String, Ob
         /*
          * Tables Managed By This Model
          */
-        // Register the ObjectModel for the Car class with the DatabaseModel
-        objectModels.put(Category.class, new JdbcObjectModel<Category>(this) {
-        });
+        MetaDataController.getInstance().initModelForDatabase(objectModels, this);
+        CategoryController.getInstance().initModelForDatabase(objectModels, this);
+        FilmController.getInstance().initModelForDatabase(objectModels, this);
     }
 
     @Override
@@ -55,6 +61,8 @@ public class LibraryDatabase extends DatabaseModel<ResultSet, HashMap<String, Ob
     @Override
     protected void onInsertDefaultValues() {
         CategoryController.getInstance().init(this);
+        FilmController.getInstance().init(this);
+        MetaDataController.getInstance().init(this);
 
         Category[] categories = new Category[]{
                 new Category("Film"),
@@ -62,6 +70,18 @@ public class LibraryDatabase extends DatabaseModel<ResultSet, HashMap<String, Ob
                 new Category("Livre"),
                 new Category("Jeux-Vidéo")
         };
+
+        MetaData meta_data = new MetaData("Une metadata",
+                1,
+                "carrefour",
+                new Date(),
+                "il était bien",
+                Status.ABANDONNED);
+        MetaDataController.getInstance().create(meta_data);
+
+        Film film = new Film(90, meta_data);
+
+        FilmController.getInstance().create(film);
 
         for (Category category : categories) {
             CategoryController.getInstance().create(category);
