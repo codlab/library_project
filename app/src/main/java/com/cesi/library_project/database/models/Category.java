@@ -2,10 +2,10 @@ package com.cesi.library_project.database.models;
 
 import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
-public class Category {
+public class Category implements IIdSetter {
 
     @PrimaryKey(autoIncrement = true)
-    private int id;
+    private long id;
 
     private String name;
 
@@ -23,7 +23,12 @@ public class Category {
         return name;
     }
 
-    public int getId() {
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
         return id;
     }
 

@@ -1,6 +1,7 @@
 package com.cesi.library_project.database.controllers;
 
 import com.cesi.library_project.database.db.LibraryDatabase;
+import com.cesi.library_project.database.models.IIdSetter;
 import com.sun.istack.internal.NotNull;
 import za.co.neilson.sqlite.orm.ObjectModel;
 
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * @param <A_MODEL_CLASS> the class name which will be used
  */
-public abstract class AbstractController<A_MODEL_CLASS> implements ICRUD<A_MODEL_CLASS> {
+public abstract class AbstractController<A_MODEL_CLASS extends IIdSetter> implements ICRUD<A_MODEL_CLASS> {
 
     //the current database instance
     private LibraryDatabase mLibrary;
@@ -42,7 +43,7 @@ public abstract class AbstractController<A_MODEL_CLASS> implements ICRUD<A_MODEL
         objectModels.put(getModelClass(), createJDBCObject(instance));
     }
 
-    protected abstract ObjectModel<A_MODEL_CLASS,ResultSet,HashMap<String,Object>> createJDBCObject(LibraryDatabase instance) throws NoSuchFieldException, ClassNotFoundException;
+    protected abstract ObjectModel<A_MODEL_CLASS, ResultSet, HashMap<String, Object>> createJDBCObject(LibraryDatabase instance) throws NoSuchFieldException, ClassNotFoundException;
 
     /**
      * Init the current Controller
@@ -64,7 +65,10 @@ public abstract class AbstractController<A_MODEL_CLASS> implements ICRUD<A_MODEL
     @Override
     public void create(@NotNull A_MODEL_CLASS model) {
         try {
-            mProvider.insert(model);
+            long id = mProvider.insert(model);
+            if (id > 0) {
+                model.setId(id);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

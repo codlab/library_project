@@ -5,7 +5,7 @@ import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
 import java.util.Date;
 
-public class MetaData {
+public class MetaData implements IIdSetter {
 
     @PrimaryKey(autoIncrement = true)
     private long id;
@@ -27,7 +27,7 @@ public class MetaData {
     }
 
     public MetaData(String title,
-                    /*la note*/int note,
+            /*la note*/int note,
                     String origin,
                     Date release,
                     String commentaire,
@@ -40,10 +40,12 @@ public class MetaData {
         setStatus(status);
     }
 
+    @Override
     public long getId() {
         return id;
     }
 
+    @Override
     public void setId(long id) {
         this.id = id;
     }
@@ -94,5 +96,10 @@ public class MetaData {
 
     public void setStatus(Status status) {
         this.status = status.name();
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + getTitle() + " " + getCommentaire();
     }
 }

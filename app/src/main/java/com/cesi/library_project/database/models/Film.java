@@ -3,7 +3,7 @@ package com.cesi.library_project.database.models;
 import za.co.neilson.sqlite.orm.annotations.ForeignKey;
 import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
-public class Film implements IMetaDataProvider {
+public class Film implements IMetaDataProvider, IIdSetter {
 
     @PrimaryKey(autoIncrement = true)
     private long id;
@@ -24,10 +24,12 @@ public class Film implements IMetaDataProvider {
         setMetaData(meta_data);
     }
 
+    @Override
     public long getId() {
         return id;
     }
 
+    @Override
     public void setId(long id) {
         this.id = id;
     }

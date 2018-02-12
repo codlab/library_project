@@ -78,7 +78,7 @@ public class LibraryDatabase extends DatabaseModel<ResultSet, HashMap<String, Ob
                 "il était bien",
                 Status.ABANDONNED);
         MetaDataController.getInstance().create(meta_data);
-
+        System.out.println(meta_data.toString());
         Film film = new Film(90, meta_data);
 
         FilmController.getInstance().create(film);
