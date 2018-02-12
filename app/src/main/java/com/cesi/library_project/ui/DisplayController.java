@@ -2,9 +2,7 @@ package com.cesi.library_project.ui;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.*;
 
 public class DisplayController {
