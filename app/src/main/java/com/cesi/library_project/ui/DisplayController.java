@@ -1,17 +1,17 @@
 package com.cesi.library_project.ui;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.*;
 
 public class DisplayController {
     private final static DisplayController CONTROLLER = new DisplayController();
     private final Display mDisplay;
     private final Shell mShell;
-    private final RowLayout mLayout;
+    private final Layout mLayout;
 
     public static DisplayController getInstance() {
         return CONTROLLER;
@@ -19,9 +19,10 @@ public class DisplayController {
 
     private DisplayController() {
         mDisplay = new Display();
-        mShell = new Shell(mDisplay);
-        mLayout = new RowLayout();
-        mShell.setLayout (mLayout);
+        mShell = new Shell(mDisplay, SWT.SHELL_TRIM);
+        mLayout = new GridLayout(2, false);
+        mShell.setLayout(mLayout);
+        mShell.setBackground(getColor(100,100,100));
     }
 
     public Composite getComposite() {
@@ -30,6 +31,7 @@ public class DisplayController {
 
     public void startApp() {
         mShell.setSize(300, 300);
+        mShell.setMinimumSize(300, 300);
         mShell.open();
 
 
@@ -39,5 +41,17 @@ public class DisplayController {
         }
 
         mDisplay.dispose();
+    }
+
+    public void layout(Control control) {
+        Composite current_composite = control.getParent();
+        while (current_composite.getParent() != null) {
+            current_composite = current_composite.getParent();
+        }
+        current_composite.layout();
+    }
+
+    public Color getColor(int red, int green, int blue) {
+        return new Color(mDisplay, red, green, blue);
     }
 }

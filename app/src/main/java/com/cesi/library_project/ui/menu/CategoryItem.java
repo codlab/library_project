@@ -7,28 +7,32 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-
-import javax.swing.*;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a Menu Item
  */
-public class CategoryItem implements IComponentProvider {
+public class CategoryItem implements IComponentProvider, MouseListener {
 
+    private CategoryMenu mParent;
     private Category mCategory;
     private Button mLabel;
 
-    public CategoryItem(Category category) {
+    public CategoryItem(@NotNull CategoryMenu parent, @NotNull Category category) {
         setCategory(category);
+        setCategoryParent(parent);
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(@NotNull Category category) {
         mCategory = category;
 
         if (mLabel != null) {
             mLabel.setText(mCategory.getName());
         }
+    }
+
+    public void setCategoryParent(@NotNull CategoryMenu category_menu) {
+        mParent = category_menu;
     }
 
     public Category getCategory() {
@@ -37,13 +41,17 @@ public class CategoryItem implements IComponentProvider {
 
     /**
      * Creates the button and set its text to the category name
+     *
      * @param composite inject the view into it
      */
     @Override
-    public void implement(Composite composite) {
+    public void implement(@NotNull Composite composite) {
         if (mLabel != null) mLabel.dispose();
 
         mLabel = new Button(composite, SWT.PUSH);
+
+        mLabel.addMouseListener(this);
+
 
         if (mCategory != null) {
             mLabel.setText(mCategory.getName());
@@ -53,5 +61,20 @@ public class CategoryItem implements IComponentProvider {
     @Override
     public void dispose() {
         mLabel.dispose();
+    }
+
+    @Override
+    public void mouseDoubleClick(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseDown(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseUp(MouseEvent mouseEvent) {
+        mParent.onCategoryClicked(mCategory);
     }
 }
