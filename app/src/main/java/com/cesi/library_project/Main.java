@@ -28,6 +28,8 @@ public class Main {
         //load TestScreen's content into the main "composite"
         screen.implement(composite);
 
+
+
         DisplayController.getInstance().startApp();
     }
 }

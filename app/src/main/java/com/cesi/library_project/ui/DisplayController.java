@@ -1,7 +1,9 @@
 package com.cesi.library_project.ui;
 
+import com.cesi.library_project.utils.Utils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 
@@ -21,10 +23,15 @@ public class DisplayController {
         mLayout = new GridLayout(2, false);
         mShell.setLayout(mLayout);
         mShell.setBackground(getColor(100,100,100));
+
     }
 
     public Composite getComposite() {
         return mShell;
+    }
+
+    public Display getDisplay() {
+        return mDisplay;
     }
 
     public void startApp() {
@@ -43,13 +50,18 @@ public class DisplayController {
 
     public void layout(Control control) {
         Composite current_composite = control.getParent();
-        while (current_composite.getParent() != null) {
+        while (current_composite != null) {
+            current_composite.layout();
             current_composite = current_composite.getParent();
         }
-        current_composite.layout();
     }
 
     public Color getColor(int red, int green, int blue) {
         return new Color(mDisplay, red, green, blue);
+    }
+
+    public Image loadImage(String path, int max_height) {
+        Image image = Utils.loadImageFromResources(this, mDisplay, path);
+        return Utils.resizeImage(image, mDisplay,  1, max_height);
     }
 }
