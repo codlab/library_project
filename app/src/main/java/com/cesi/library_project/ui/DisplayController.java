@@ -5,13 +5,16 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 public class DisplayController {
     private final static DisplayController CONTROLLER = new DisplayController();
     private final Display mDisplay;
     private final Shell mShell;
-    private final Layout mLayout;
+    private final GridLayout mLayout;
 
     public static DisplayController getInstance() {
         return CONTROLLER;
@@ -20,10 +23,10 @@ public class DisplayController {
     private DisplayController() {
         mDisplay = new Display();
         mShell = new Shell(mDisplay, SWT.SHELL_TRIM);
-        mLayout = new GridLayout(2, false);
+        mLayout = new GridLayout();
+        mLayout.numColumns = 2;
         mShell.setLayout(mLayout);
         mShell.setBackground(getColor(100,100,100));
-
     }
 
     public Composite getComposite() {

@@ -9,6 +9,7 @@ import com.cesi.library_project.ui.test.TestScreen;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,7 +45,10 @@ public class CategoryMenu implements IComponentProvider, ICategoryClicked {
             mGrid = new GridLayout(1, true);
 
             mComposite = new Composite(composite, SWT.PUSH);
-            mComposite.setLayoutData(new GridData(SWT.TOP, SWT.LEFT));
+            GridData data = new GridData();
+            data.verticalAlignment = SWT.FILL;
+            data.horizontalAlignment = SWT.BEGINNING;
+            mComposite.setLayoutData(data);
             mComposite.setLayout(mGrid);
             mComposite.setBackground(DisplayController.getInstance()
                     .getColor(0, 255, 0));
