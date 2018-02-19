@@ -20,8 +20,6 @@ public class Main {
     void start() {
         DatabaseController.getInstance().init();
         Composite composite = DisplayController.getInstance().getComposite();
-        composite.setBackground(DisplayController.getInstance()
-                .getColor(0, 0, 255));
 
         //starting the screen
         TestScreen screen = new TestScreen();
