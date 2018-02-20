@@ -1,6 +1,7 @@
-package com.cesi.library_project.providers.ui.film;
+package com.cesi.library_project.providers.ui.music;
 
 import com.cesi.library_project.database.models.Film;
+import com.cesi.library_project.database.models.Music;
 import com.cesi.library_project.providers.ui.AbstractComponentProvider;
 import com.cesi.library_project.ui.DisplayController;
 import org.eclipse.swt.SWT;
@@ -12,12 +13,12 @@ import org.eclipse.swt.widgets.Label;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FilmThumbnail extends AbstractComponentProvider<Film> {
+public class MusicThumbnail extends AbstractComponentProvider<Music> {
 
     private Composite mComposite;
     private Image mImage;
 
-    public FilmThumbnail(Film object) {
+    public MusicThumbnail(Music object) {
         super(object);
     }
 
@@ -41,7 +42,7 @@ public class FilmThumbnail extends AbstractComponentProvider<Film> {
         mComposite.setLayout(layout);
 
         mImage = DisplayController.getInstance()
-                .loadImage("/com/cesi/resources/heroes.png", 150);
+                .loadImage("/com/cesi/resources/thumbnail_music.png", 150);
 
         Label label = new Label(mComposite, SWT.NONE);
         label.setImage(mImage);
@@ -49,7 +50,6 @@ public class FilmThumbnail extends AbstractComponentProvider<Film> {
         GridData data = new GridData();
         data.horizontalAlignment = SWT.CENTER;
         Label text = new Label(mComposite, SWT.NONE);
-        if(getModel() != null)
         text.setText(getModel().getMetaData().getTitle());
         text.setLayoutData(data);
     }

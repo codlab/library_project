@@ -1,9 +1,6 @@
 package com.cesi.library_project.database.db;
 
-import com.cesi.library_project.database.controllers.AbstractController;
-import com.cesi.library_project.database.controllers.CategoryController;
-import com.cesi.library_project.database.controllers.FilmController;
-import com.cesi.library_project.database.controllers.MetaDataController;
+import com.cesi.library_project.database.controllers.*;
 
 import java.sql.SQLException;
 
@@ -11,10 +8,11 @@ public class DatabaseController {
     private static DatabaseController DATABASE = new DatabaseController();
     private LibraryDatabase mDatabase;
 
-    private final static AbstractController[] CONTROLLERS = new AbstractController[] {
+    final static AbstractController[] CONTROLLERS = new AbstractController[] {
             MetaDataController.getInstance(),
             CategoryController.getInstance(),
-            FilmController.getInstance()
+            FilmController.getInstance(),
+            MusicController.getInstance()
     };
 
     public static DatabaseController getInstance() {

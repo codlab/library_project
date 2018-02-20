@@ -5,4 +5,6 @@ public interface IIdSetter {
     void setId(long id);
 
     long getId();
+
+    Object[] toArray();
 }

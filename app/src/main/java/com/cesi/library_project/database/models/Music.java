@@ -4,7 +4,7 @@ import com.cesi.library_project.database.controllers.MetaDataController;
 import za.co.neilson.sqlite.orm.annotations.ForeignKey;
 import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
-public class Film implements IMetaDataProvider, IIdSetter {
+public class Music implements IMetaDataProvider, IIdSetter {
 
     @PrimaryKey(autoIncrement = true)
     private long id;
@@ -16,11 +16,11 @@ public class Film implements IMetaDataProvider, IIdSetter {
 
     private MetaData meta_data;
 
-    public Film() {
+    public Music() {
 
     }
 
-    public Film(long duration, MetaData meta_data) {
+    public Music(long duration, MetaData meta_data) {
         setDuration(duration);
         setMetaData(meta_data);
     }
@@ -35,7 +35,7 @@ public class Film implements IMetaDataProvider, IIdSetter {
         Object[] metadata = meta_data.toArray();
         Object[] final_object = new Object[metadata.length + 1];
         int i = 0;
-        for (Object object: metadata) {
+        for (Object object : metadata) {
             final_object[i++] = object;
         }
         final_object[final_object.length - 1] = duration;
@@ -64,5 +64,10 @@ public class Film implements IMetaDataProvider, IIdSetter {
     public void setMetaData(MetaData meta_data) {
         this.meta_data_id = meta_data.getId();
         this.meta_data = meta_data;
+    }
+
+    @Override
+    public String toString() {
+        return "Music " + id + " " + duration + " " + meta_data_id + " // " + getMetaData().toString();
     }
 }

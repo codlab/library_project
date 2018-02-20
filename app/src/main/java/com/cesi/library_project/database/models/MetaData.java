@@ -8,7 +8,7 @@ import java.util.Date;
 public class MetaData implements IIdSetter {
 
     @PrimaryKey(autoIncrement = true)
-    private long id;
+    private long meta_data_id;
 
     private String title;
 
@@ -42,12 +42,24 @@ public class MetaData implements IIdSetter {
 
     @Override
     public long getId() {
-        return id;
+        return meta_data_id;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return new Object[]{
+                getTitle(),
+                getNote(),
+                getOrigin(),
+                getRelease(),
+                getCommentaire(),
+                getStatus()
+        };
     }
 
     @Override
     public void setId(long id) {
-        this.id = id;
+        this.meta_data_id = id;
     }
 
     public String getTitle() {
@@ -100,6 +112,6 @@ public class MetaData implements IIdSetter {
 
     @Override
     public String toString() {
-        return id + " " + getTitle() + " " + getCommentaire();
+        return meta_data_id + " " + getTitle() + " " + getCommentaire();
     }
 }

@@ -1,12 +1,7 @@
 package com.cesi.library_project.database.db;
 
-import com.cesi.library_project.database.controllers.CategoryController;
-import com.cesi.library_project.database.controllers.FilmController;
-import com.cesi.library_project.database.controllers.MetaDataController;
-import com.cesi.library_project.database.models.Category;
-import com.cesi.library_project.database.models.Film;
-import com.cesi.library_project.database.models.MetaData;
-import com.cesi.library_project.database.models.Status;
+import com.cesi.library_project.database.controllers.*;
+import com.cesi.library_project.database.models.*;
 import za.co.neilson.sqlite.orm.DatabaseDriverInterface;
 import za.co.neilson.sqlite.orm.DatabaseInfo;
 import za.co.neilson.sqlite.orm.DatabaseModel;
@@ -43,9 +38,9 @@ public class LibraryDatabase extends DatabaseModel<ResultSet, HashMap<String, Ob
         /*
          * Tables Managed By This Model
          */
-        MetaDataController.getInstance().initModelForDatabase(objectModels, this);
-        CategoryController.getInstance().initModelForDatabase(objectModels, this);
-        FilmController.getInstance().initModelForDatabase(objectModels, this);
+        for (AbstractController controller : DatabaseController.CONTROLLERS) {
+            controller.initModelForDatabase(objectModels, this);
+        }
     }
 
     @Override
@@ -62,11 +57,12 @@ public class LibraryDatabase extends DatabaseModel<ResultSet, HashMap<String, Ob
     protected void onInsertDefaultValues() {
         CategoryController.getInstance().init(this);
         FilmController.getInstance().init(this);
+        MusicController.getInstance().init(this);
         MetaDataController.getInstance().init(this);
 
         Category[] categories = new Category[]{
                 new Category("Film", "k", false, Film.class.getSimpleName()),
-                new Category("Musique", "o", false, null),
+                new Category("Musique", "o", false, Music.class.getSimpleName()),
                 new Category("Livre", "m", false, null),
                 new Category("Jeux-Vidéo", "n", false, null)
         };
@@ -81,7 +77,30 @@ public class LibraryDatabase extends DatabaseModel<ResultSet, HashMap<String, Ob
         System.out.println(meta_data.toString());
         Film film = new Film(90, meta_data);
 
+        meta_data = new MetaData("Une chanson",
+                0,
+                "super u",
+                new Date(),
+                "c était moins bien, c était mieux avant",
+                Status.ABANDONNED);
+        MetaDataController.getInstance().create(meta_data);
+        System.out.println(meta_data.toString());
+        Music music = new Music(120, meta_data);
+
+        meta_data = new MetaData("Sharknado",
+                9,
+                "leclerc",
+                new Date(),
+                "un requin des tornades",
+                Status.ABANDONNED);
+        MetaDataController.getInstance().create(meta_data);
+        Film film2 = new Film(90, meta_data);
+
+        System.out.println(music.getMetaData().toString());
+
         FilmController.getInstance().create(film);
+        FilmController.getInstance().create(film2);
+        MusicController.getInstance().create(music);
 
         for (Category category : categories) {
             CategoryController.getInstance().create(category);

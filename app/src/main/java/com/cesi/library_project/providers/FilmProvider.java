@@ -4,7 +4,9 @@ import com.cesi.library_project.database.controllers.FilmController;
 import com.cesi.library_project.database.models.Film;
 import com.cesi.library_project.providers.ui.film.FilmThumbnail;
 
-public class FilmProvider extends AbstractProvider<Film, FilmThumbnail, FilmController>{
+
+//TODO create FilmForm and replace in modify/create
+public class FilmProvider extends AbstractProvider<Film, FilmThumbnail, FilmController, FilmThumbnail>{
     @Override
     protected FilmController createController() {
         return FilmController.getInstance();
@@ -17,6 +19,16 @@ public class FilmProvider extends AbstractProvider<Film, FilmThumbnail, FilmCont
 
     @Override
     public FilmThumbnail getPageProvider(Film object) {
+        return null;
+    }
+
+    @Override
+    public FilmThumbnail modifyObject(Film object) {
+        return null;
+    }
+
+    @Override
+    public FilmThumbnail createObject() {
         return null;
     }
 }

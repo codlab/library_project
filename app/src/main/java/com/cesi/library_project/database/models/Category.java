@@ -54,6 +54,15 @@ public class Category implements IIdSetter, ICategory {
         return id;
     }
 
+    @Override
+    public Object[] toArray() {
+        return new Object[]{
+                icon,
+                name,
+                klass
+        };
+    }
+
     public void setKlass(String klass) {
         this.klass = klass;
     }

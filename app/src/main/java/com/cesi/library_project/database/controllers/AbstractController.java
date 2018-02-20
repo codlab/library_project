@@ -3,11 +3,13 @@ package com.cesi.library_project.database.controllers;
 import com.cesi.library_project.database.db.LibraryDatabase;
 import com.cesi.library_project.database.models.IIdSetter;
 import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
 import za.co.neilson.sqlite.orm.ObjectModel;
 
 import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,6 +22,10 @@ import java.util.List;
  */
 public abstract class AbstractController<A_MODEL_CLASS extends IIdSetter> implements ICRUD<A_MODEL_CLASS> {
 
+    private List<IModificationListener> mListeners = new ArrayList<>();
+    private List<A_MODEL_CLASS> mCache = new ArrayList();
+    private HashMap<Long, A_MODEL_CLASS> mCacheIndex = new HashMap<>();
+
     //the current database instance
     private LibraryDatabase mLibrary;
 
@@ -29,6 +35,18 @@ public abstract class AbstractController<A_MODEL_CLASS extends IIdSetter> implem
     //we protect the standard constructor
     protected AbstractController() {
 
+    }
+
+    public void register(IModificationListener listener) {
+        if(listener != null && !mListeners.contains(listener)) {
+            mListeners.add(listener);
+        }
+    }
+
+    public void unregister(IModificationListener listener) {
+        if(listener != null && mListeners.contains(listener)) {
+            mListeners.remove(listener);
+        }
     }
 
     /**
@@ -65,9 +83,17 @@ public abstract class AbstractController<A_MODEL_CLASS extends IIdSetter> implem
     @Override
     public void create(@NotNull A_MODEL_CLASS model) {
         try {
+            list();
             long id = mProvider.insert(model);
+            System.out.println("saving in " + id + " " + model.getClass().getSimpleName());
             if (id > 0) {
                 model.setId(id);
+                mCache.add(model);
+                mCacheIndex.put(model.getId(), model);
+            }
+
+            for (IModificationListener listener : mListeners) {
+                    listener.onCreate(model);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,11 +109,17 @@ public abstract class AbstractController<A_MODEL_CLASS extends IIdSetter> implem
     @Override
     public List<A_MODEL_CLASS> list() {
         try {
-            return mProvider.getAll();
+            if(mCache.size() <= 0) {
+                mCache = mProvider.getAll();
+
+                for (A_MODEL_CLASS model : mCache) {
+                    mCacheIndex.put(model.getId(), model);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return mCache;
     }
 
     /**
@@ -99,9 +131,19 @@ public abstract class AbstractController<A_MODEL_CLASS extends IIdSetter> implem
     public void update(@NotNull A_MODEL_CLASS model) {
         try {
             mProvider.update(model);
+
+            for (IModificationListener listener : mListeners) {
+                listener.onUpdate(model);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Nullable
+    public A_MODEL_CLASS findById(long id) {
+        list();
+        return mCacheIndex.get(id);
     }
 
     /**
@@ -112,9 +154,20 @@ public abstract class AbstractController<A_MODEL_CLASS extends IIdSetter> implem
     @Override
     public void delete(@NotNull A_MODEL_CLASS model) {
         try {
+            mCacheIndex.remove(model.getId());
+            mCache.remove(model);
+            //remove(model);
+
             mProvider.delete(model);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public interface IModificationListener<A_MODEL_CLASS extends IIdSetter> {
+
+        void onCreate(A_MODEL_CLASS object);
+
+        void onUpdate(A_MODEL_CLASS object);
     }
 }
