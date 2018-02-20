@@ -6,22 +6,19 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ScrollContent implements IComponentProvider {
     private ScrolledComposite mScrollComposite;
     private IComponentProvider mChildProvider;
-    private WidthProvider mWidthProvider;
+    private IWidthProvider mWidthProvider;
 
     public ScrollContent() {
 
-        setPreferredWidthProvider(new WidthProvider() {
+        setPreferredWidthProvider(new IWidthProvider() {
             @Override
             public int getPreferredWidth(Rectangle rectangle) {
                 return rectangle.width;
@@ -51,7 +48,7 @@ public class ScrollContent implements IComponentProvider {
         });
     }
 
-    public void setPreferredWidthProvider(@NotNull WidthProvider provider) {
+    public void setPreferredWidthProvider(@NotNull IWidthProvider provider) {
         mWidthProvider = provider;
     }
 
@@ -66,9 +63,6 @@ public class ScrollContent implements IComponentProvider {
 
         //proxy composite to display the internal component easily
         mScrollComposite = new ScrolledComposite(composite, SWT.V_SCROLL);
-
-        RowLayout layout = new RowLayout(SWT.HORIZONTAL);
-        layout.wrap = true;
         //next set into setChild()
     }
 
@@ -82,7 +76,7 @@ public class ScrollContent implements IComponentProvider {
         DisplayController.getInstance().layout(mChildProvider.getComposite());
     }
 
-    public interface WidthProvider {
+    public interface IWidthProvider {
         int getPreferredWidth(Rectangle rectangle);
     }
 }

@@ -6,6 +6,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -26,19 +27,22 @@ public class DisplayController {
     private DisplayController() {
         mDisplay = new Display();
         mShell = new Shell(mDisplay, SWT.SHELL_TRIM);
-        mLayout = new GridLayout();
-        mLayout.numColumns = 2;
+
+        mLayout = new GridLayout(1, true);
         mLayout.horizontalSpacing = mLayout.verticalSpacing = 0;
         mLayout.marginTop = mLayout.marginBottom = 0;
         mLayout.marginLeft = mLayout.marginRight = 0;
         mLayout.marginWidth = mLayout.marginHeight = 0;
-
         mShell.setLayout(mLayout);
         mShell.setBackground(getColor(100, 100, 100));
 
         boolean loaded = Fonts.getInstance()
                 .init(mDisplay)
                 .loadFont("/com/cesi/resources/font.ttf", "font.ttf");
+
+        loaded &= Fonts.getInstance()
+                .loadFont("/com/cesi/resources/cesi.ttf","cesi.ttf");
+
         System.out.println("loaded := " + loaded);
     }
 
@@ -51,7 +55,7 @@ public class DisplayController {
     }
 
     public void startApp() {
-        mShell.setSize(300, 300);
+        mShell.setSize(900, 600);
         mShell.setMinimumSize(300, 300);
         mShell.open();
 

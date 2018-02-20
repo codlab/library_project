@@ -39,7 +39,7 @@ public class Fonts {
         Font font = _fonts.get(key);
 
         if (font == null) {
-            font = new Font(_display, name, 12, SWT.NORMAL);
+            font = new Font(_display, name, size, SWT.NORMAL);
             System.out.println("font ");
             _fonts.put(key, font);
         }

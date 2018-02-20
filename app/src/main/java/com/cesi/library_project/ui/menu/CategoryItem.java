@@ -105,8 +105,6 @@ public class CategoryItem implements IComponentProvider, MouseListener, ICategor
 
         mLabelType.setFont(Fonts.getInstance().getFont("nonopn", 12));
 
-        Fonts.getInstance().displayAllLoadedFonts();
-
         if (mCategory != null) {
             mLabelType.setText(mCategory.getIcon());
             mLabelName.setText(mCategory.getName());
@@ -116,8 +114,11 @@ public class CategoryItem implements IComponentProvider, MouseListener, ICategor
 
     @Override
     public void dispose() {
-        mLabelName.dispose();
-        mLabelType.dispose();
+        if(!mComposite.isDisposed()) {
+            mComposite.dispose();
+            mLabelName.dispose();
+            mLabelType.dispose();
+        }
     }
 
     @Override
@@ -136,22 +137,34 @@ public class CategoryItem implements IComponentProvider, MouseListener, ICategor
     }
 
     private void onMouseEnter() {
-        Color color = DisplayController.getInstance()
-                .getColor(150, 150, 150);
-        mComposite.setBackground(color);
-        mLabelName.setBackground(color);
-        mLabelType.setBackground(color);
+        changeColor(150, 150, 150,
+                240, 240, 240);
     }
 
     private void onMouseExit() {
         if (mLastClicked != null && mLastClicked.equals(mCategory)) {
             onMouseEnter();
         } else {
-            Color color = DisplayController.getInstance()
-                    .getColor(240, 240, 240);
+            changeColor(240, 240, 240,
+                    50, 50, 50);
+        }
+    }
+
+    private void changeColor(int red, int green, int blue,
+                             int text_red, int text_green, int text_blue) {
+
+        Color color = DisplayController.getInstance()
+                .getColor(red, green, blue);
+        Color text_color = DisplayController.getInstance()
+                .getColor(text_red, text_green, text_blue);
+
+        if(!mComposite.isDisposed()) {
             mComposite.setBackground(color);
             mLabelName.setBackground(color);
             mLabelType.setBackground(color);
+
+            mLabelType.setForeground(text_color);
+            mLabelName.setForeground(text_color);
         }
     }
 
