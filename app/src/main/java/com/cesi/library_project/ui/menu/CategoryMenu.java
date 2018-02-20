@@ -2,6 +2,9 @@ package com.cesi.library_project.ui.menu;
 
 import com.cesi.library_project.database.controllers.CategoryController;
 import com.cesi.library_project.database.models.Category;
+import com.cesi.library_project.providers.Providers;
+import com.cesi.library_project.providers.ui.AbstractComponentProvider;
+import com.cesi.library_project.providers.ui.category.CategoryThumbnail;
 import com.cesi.library_project.ui.DisplayController;
 import com.cesi.library_project.ui.IComponentProvider;
 import com.cesi.library_project.ui.listeners.ICategoryClicked;
@@ -20,6 +23,7 @@ import org.eclipse.swt.widgets.Label;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.xml.ws.Provider;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +34,7 @@ public class CategoryMenu implements IComponentProvider, ICategoryClicked {
 
     private GridLayout mGrid;
     private Composite mComposite;
-    private ArrayList<CategoryItem> mCategoriesItem;
+    private ArrayList<CategoryThumbnail> mCategoriesItem;
     private MainAreaContent mParent;
     private ScrollContent mScrollProvider;
 
@@ -52,7 +56,8 @@ public class CategoryMenu implements IComponentProvider, ICategoryClicked {
      */
     @Override
     public void implement(Composite composite) {
-        List<Category> list = CategoryController.getInstance().list();
+        List<Category> list = Providers.CATEGORY_PROVIDER
+                .getTableController().list();
 
         if (mGrid == null) {
             mGrid = new GridLayout(1, true);
@@ -77,7 +82,7 @@ public class CategoryMenu implements IComponentProvider, ICategoryClicked {
             mComposite.setLayout(mGrid);
         }
 
-        mCategoriesItem = new ArrayList<CategoryItem>();
+        mCategoriesItem = new ArrayList<CategoryThumbnail>();
 
         Composite temp_composite = new Composite(mComposite, SWT.NONE);
         RowLayout layout = new RowLayout(SWT.VERTICAL);
@@ -91,7 +96,10 @@ public class CategoryMenu implements IComponentProvider, ICategoryClicked {
                 .getColor(120, 120, 120));
 
         for (Category category : list) {
-            CategoryItem item = new CategoryItem(CategoryMenu.this, category);
+            CategoryThumbnail item = Providers.CATEGORY_PROVIDER
+                    .getThumbnailProvider(category);
+
+            item.setCategoryParent(this);
             mCategoriesItem.add(item);
             item.implement(mComposite);
         }
@@ -114,7 +122,7 @@ public class CategoryMenu implements IComponentProvider, ICategoryClicked {
     public void onCategoryClicked(Category category) {
         mParent.onCategoryClicked(category);
 
-        for (CategoryItem item : mCategoriesItem) {
+        for (CategoryThumbnail item : mCategoriesItem) {
             item.onCategoryClicked(category);
         }
     }

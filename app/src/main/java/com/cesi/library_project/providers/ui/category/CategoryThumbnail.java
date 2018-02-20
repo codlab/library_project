@@ -1,53 +1,47 @@
-package com.cesi.library_project.ui.menu;
+package com.cesi.library_project.providers.ui.category;
 
 import com.cesi.library_project.database.models.Category;
+import com.cesi.library_project.providers.ui.AbstractComponentProvider;
 import com.cesi.library_project.ui.DisplayController;
-import com.cesi.library_project.ui.IComponentProvider;
 import com.cesi.library_project.ui.listeners.ICategoryClicked;
+import com.cesi.library_project.ui.menu.CategoryMenu;
 import com.cesi.library_project.utils.Fonts;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Represents a Menu Item
- */
-public class CategoryItem implements IComponentProvider, MouseListener, ICategoryClicked {
+public class CategoryThumbnail extends AbstractComponentProvider<Category>
+        implements MouseListener, ICategoryClicked {
+
 
     private CategoryMenu mParent;
-    private Category mCategory;
     private Label mLabelType;
     private Label mLabelName;
     private Composite mComposite;
     private Category mLastClicked;
 
-    public CategoryItem(@NotNull CategoryMenu parent, @NotNull Category category) {
+    public CategoryThumbnail(Category object) {
+        super(object);
+    }
+
+    /*public CategoryThumbnail(@NotNull CategoryMenu parent, @NotNull Category category) {
+        super(category);
+
         setCategory(category);
         setCategoryParent(parent);
-    }
-
-    public void setCategory(@NotNull Category category) {
-        mCategory = category;
-
-        if (mLabelName != null) {
-            mLabelName.setText(mCategory.getName());
-        }
-    }
+    }*/
 
     public void setCategoryParent(@NotNull CategoryMenu category_menu) {
         mParent = category_menu;
-    }
-
-    public Category getCategory() {
-        return mCategory;
     }
 
     @Nullable
@@ -105,16 +99,16 @@ public class CategoryItem implements IComponentProvider, MouseListener, ICategor
 
         mLabelType.setFont(Fonts.getInstance().getFont("nonopn", 12));
 
-        if (mCategory != null) {
-            mLabelType.setText(mCategory.getIcon());
-            mLabelName.setText(mCategory.getName());
+        if (getModel() != null) {
+            mLabelType.setText(getModel().getIcon());
+            mLabelName.setText(getModel().getName());
         }
         onMouseExit();
     }
 
     @Override
     public void dispose() {
-        if(!mComposite.isDisposed()) {
+        if (!mComposite.isDisposed()) {
             mComposite.dispose();
             mLabelName.dispose();
             mLabelType.dispose();
@@ -133,7 +127,7 @@ public class CategoryItem implements IComponentProvider, MouseListener, ICategor
 
     @Override
     public void mouseUp(MouseEvent mouseEvent) {
-        mParent.onCategoryClicked(mCategory);
+        mParent.onCategoryClicked(getModel());
     }
 
     private void onMouseEnter() {
@@ -142,7 +136,7 @@ public class CategoryItem implements IComponentProvider, MouseListener, ICategor
     }
 
     private void onMouseExit() {
-        if (mLastClicked != null && mLastClicked.equals(mCategory)) {
+        if (mLastClicked != null && mLastClicked.equals(getModel())) {
             onMouseEnter();
         } else {
             changeColor(240, 240, 240,
@@ -158,7 +152,7 @@ public class CategoryItem implements IComponentProvider, MouseListener, ICategor
         Color text_color = DisplayController.getInstance()
                 .getColor(text_red, text_green, text_blue);
 
-        if(!mComposite.isDisposed()) {
+        if (!mComposite.isDisposed()) {
             mComposite.setBackground(color);
             mLabelName.setBackground(color);
             mLabelType.setBackground(color);
@@ -171,7 +165,7 @@ public class CategoryItem implements IComponentProvider, MouseListener, ICategor
     @Override
     public void onCategoryClicked(Category category) {
         mLastClicked = category;
-        if (mCategory != null && mCategory.equals(category)) {
+        if (getModel() != null && getModel().equals(category)) {
             onMouseEnter();
         } else {
             onMouseExit();

@@ -61,8 +61,14 @@ public class NavBarContent implements IComponentProvider {
         mComposite.setLayout(layout);
 
 
+        GridData search_data = new GridData();
+        search_data.horizontalAlignment = SWT.BEGINNING;
+        search_data.verticalAlignment = SWT.BEGINNING;
+        search_data.grabExcessHorizontalSpace = true;
+
         Text search = new Text(mComposite, SWT.NONE);
-        search.setText("test");
+        search.setLayoutData(search_data);
+        search.setText("");
         search.addModifyListener(new ModifyListener() {
             @Override
             public void modifyText(ModifyEvent modifyEvent) {
@@ -71,6 +77,10 @@ public class NavBarContent implements IComponentProvider {
             }
         });
 
+
+        GridData label_data = new GridData();
+        label_data.horizontalAlignment = SWT.BEGINNING;
+        label_data.verticalAlignment = SWT.BEGINNING;
         Label label = new Label(mComposite, SWT.NONE);
         mComposite.setBackground(DisplayController.getInstance()
         .getColor(255, 255, 255));
