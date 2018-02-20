@@ -1,5 +1,11 @@
 package com.cesi.library_project.ui.content;
 
+import com.cesi.library_project.database.controllers.AbstractController;
+import com.cesi.library_project.database.models.Category;
+import com.cesi.library_project.database.models.IIdSetter;
+import com.cesi.library_project.providers.AbstractProvider;
+import com.cesi.library_project.providers.Providers;
+import com.cesi.library_project.providers.ui.AbstractComponentProvider;
 import com.cesi.library_project.ui.DisplayController;
 import com.cesi.library_project.ui.IComponentProvider;
 import com.cesi.library_project.ui.scroll.ScrollContent;
@@ -16,12 +22,17 @@ import org.eclipse.swt.widgets.Label;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class CategoryListContent implements IComponentProvider {
     private final ScrollContent mScrollProvider;
+    private final Category mCategory;
     private Composite mChildComposite;
 
-    public CategoryListContent() {
+    public CategoryListContent(Category category) {
         mScrollProvider = new ScrollContent();
+
+        mCategory = category;
     }
 
     @Nullable
@@ -32,6 +43,8 @@ public class CategoryListContent implements IComponentProvider {
 
     @Override
     public void implement(@NotNull Composite composite) {
+
+        AbstractProvider provider = Providers.getProvider(mCategory.getKlass());
 
         //proxy composite to display the internal component easily
         mScrollProvider.implement(composite);
@@ -47,13 +60,15 @@ public class CategoryListContent implements IComponentProvider {
         layout.spacing = 24;
         mChildComposite.setLayout(layout);
 
-        int i = 0;
-        while (i < 100) {
-            CategoryContentItem item = new CategoryContentItem();
-            item.implement(mChildComposite);
-            i++;
-        }
+        if( null != provider) {
+            AbstractController<IIdSetter> controller = provider.getTableController();
+            List<IIdSetter> list = controller.list();
 
+            for (IIdSetter object: list) {
+                AbstractComponentProvider<IIdSetter> component = provider.getThumbnailProvider(object);
+                component.implement(mChildComposite);
+            }
+        }
     }
 
     @Override

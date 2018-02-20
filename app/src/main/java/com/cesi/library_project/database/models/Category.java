@@ -15,16 +15,19 @@ public class Category implements IIdSetter, ICategory {
 
     private boolean erasable;
 
+    private String klass;
+
     public Category() {
         erasable = false;
     }
 
-    public Category(String name, String icon, boolean erasable) {
+    public Category(String name, String icon, boolean erasable, String klass) {
         this();
 
         this.icon = icon;
         this.erasable = erasable;
         this.name = name;
+        this.klass = klass;
     }
 
     public boolean isErasable() {
@@ -49,6 +52,14 @@ public class Category implements IIdSetter, ICategory {
 
     public long getId() {
         return id;
+    }
+
+    public void setKlass(String klass) {
+        this.klass = klass;
+    }
+
+    public String getKlass() {
+        return this.klass;
     }
 
     @Override
