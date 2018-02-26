@@ -5,6 +5,7 @@ import com.cesi.library_project.database.models.Category;
 import com.cesi.library_project.ui.DisplayController;
 import com.cesi.library_project.ui.IComponentProvider;
 import com.cesi.library_project.ui.content.MainContent;
+import com.cesi.library_project.ui.format.Format;
 import com.cesi.library_project.ui.listeners.ICategoryClicked;
 import com.cesi.library_project.ui.menu.CategoryMenu;
 import org.eclipse.swt.SWT;
@@ -65,8 +66,8 @@ public class MainAreaContent implements IComponentProvider, ICategoryClicked {
 
         if (categories != null && categories.size() > 0) {
             Category category = categories.get(0);
-            mMenu.onCategoryClicked(category);
-            onCategoryClicked(category);
+            mMenu.onCategoryClicked(category, Format.THUMBNAIL);
+            onCategoryClicked(category, Format.THUMBNAIL);
         }
     }
 
@@ -76,7 +77,7 @@ public class MainAreaContent implements IComponentProvider, ICategoryClicked {
     }
 
     @Override
-    public void onCategoryClicked(Category category) {
-        mMainContent.onCategoryClicked(category);
+    public void onCategoryClicked(@Nullable Category category, @Nullable Format format) {
+        mMainContent.onCategoryClicked(category, format);
     }
 }

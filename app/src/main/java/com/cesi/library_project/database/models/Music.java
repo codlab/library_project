@@ -43,6 +43,18 @@ public class Music implements IMetaDataProvider, IIdSetter {
     }
 
     @Override
+    public String[] getColumnNames() {
+        String[] metadata = meta_data.getColumnNames();
+        String[] final_object = new String[metadata.length + 1];
+        int i = 0;
+        for (String object : metadata) {
+            final_object[i++] = object;
+        }
+        final_object[final_object.length - 1] = "duration";
+        return final_object;
+    }
+
+    @Override
     public void setId(long id) {
         this.id = id;
     }

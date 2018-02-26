@@ -3,18 +3,26 @@ package com.cesi.library_project.ui.content;
 import com.cesi.library_project.database.models.Category;
 import com.cesi.library_project.ui.DisplayController;
 import com.cesi.library_project.ui.IComponentProvider;
+import com.cesi.library_project.ui.format.Format;
 import com.cesi.library_project.ui.listeners.ICategoryClicked;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.awt.SWT_AWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import javax.swing.*;
 
 public class MainContent implements IComponentProvider, ICategoryClicked {
 
     private Composite mContent;
     private CategoryListContent mCategoryContent;
+    private CategoryTableContent mCategoryTableContent;
+    private Composite mFrame;
 
     public MainContent() {
 
@@ -52,15 +60,27 @@ public class MainContent implements IComponentProvider, ICategoryClicked {
     }
 
     @Override
-    public void onCategoryClicked(Category category) {
+    public void onCategoryClicked(@Nullable Category category, @Nullable Format format) {
         if (mCategoryContent != null) {
             mCategoryContent.dispose();
         }
 
-        mCategoryContent = new CategoryListContent(category);
-        mCategoryContent.implement(mContent);
-        mCategoryContent.resize();
+        if(mCategoryTableContent != null) {
+            mCategoryTableContent.dispose();
+        }
 
-        System.out.println("test " + category.getName());
+        //TODO manage the given Format
+        switch (format) {
+            case LIST:
+                mCategoryTableContent = new CategoryTableContent(category);
+                mCategoryTableContent.implement(mContent);
+                mCategoryTableContent.resize();
+                break;
+            case THUMBNAIL:
+            default:
+                mCategoryContent = new CategoryListContent(category);
+                mCategoryContent.implement(mContent);
+                mCategoryContent.resize();
+        }
     }
 }

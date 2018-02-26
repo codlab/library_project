@@ -4,7 +4,8 @@ public enum Status {
     NOT_BEGIN,
     IN_PROGRESS,
     FINISHED,
-    ABANDONNED;
+    ABANDONNED,
+    INVALID;
 
     public static Status from(int status) {
         switch (status) {

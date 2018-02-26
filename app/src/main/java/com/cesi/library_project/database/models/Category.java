@@ -63,6 +63,15 @@ public class Category implements IIdSetter, ICategory {
         };
     }
 
+    @Override
+    public String[] getColumnNames() {
+        return new String[] {
+                "icon",
+                "name",
+                "klass"
+        };
+    }
+
     public void setKlass(String klass) {
         this.klass = klass;
     }

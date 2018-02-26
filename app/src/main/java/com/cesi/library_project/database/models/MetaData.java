@@ -58,6 +58,18 @@ public class MetaData implements IIdSetter {
     }
 
     @Override
+    public String[] getColumnNames() {
+        return new String[]{
+                "title",
+                "Note",
+                "Origin",
+                "Release",
+                "Commentaire",
+                "Status"
+        };
+    }
+
+    @Override
     public void setId(long id) {
         this.meta_data_id = id;
     }
@@ -103,7 +115,11 @@ public class MetaData implements IIdSetter {
     }
 
     public Status getStatus() {
-        return Status.valueOf(status);
+        try {
+            return Status.valueOf(status);
+        } catch (Exception e){
+            return Status.INVALID;
+        }
     }
 
     public void setStatus(Status status) {

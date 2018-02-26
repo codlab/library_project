@@ -3,6 +3,7 @@ package com.cesi.library_project.providers.ui.category;
 import com.cesi.library_project.database.models.Category;
 import com.cesi.library_project.providers.ui.AbstractComponentProvider;
 import com.cesi.library_project.ui.DisplayController;
+import com.cesi.library_project.ui.format.Format;
 import com.cesi.library_project.ui.listeners.ICategoryClicked;
 import com.cesi.library_project.ui.menu.CategoryMenu;
 import com.cesi.library_project.utils.Fonts;
@@ -23,22 +24,25 @@ public class CategoryThumbnail extends AbstractComponentProvider<Category>
         implements MouseListener, ICategoryClicked {
 
 
+    private String mFormatLabel;
+    private Format mFormat;
     private CategoryMenu mParent;
     private Label mLabelType;
     private Label mLabelName;
     private Composite mComposite;
     private Category mLastClicked;
+    private Format mLastFormat;
 
     public CategoryThumbnail(Category object) {
         super(object);
     }
 
-    /*public CategoryThumbnail(@NotNull CategoryMenu parent, @NotNull Category category) {
-        super(category);
+    public CategoryThumbnail(String label, Format format) {
+        super(null);
 
-        setCategory(category);
-        setCategoryParent(parent);
-    }*/
+        mFormatLabel = label;
+        mFormat = format;
+    }
 
     public void setCategoryParent(@NotNull CategoryMenu category_menu) {
         mParent = category_menu;
@@ -99,7 +103,10 @@ public class CategoryThumbnail extends AbstractComponentProvider<Category>
 
         mLabelType.setFont(Fonts.getInstance().getFont("nonopn", 12));
 
-        if (getModel() != null) {
+        if (mFormatLabel != null) {
+            mLabelType.setText("a");
+            mLabelName.setText(mFormatLabel);
+        } else if (getModel() != null) {
             mLabelType.setText(getModel().getIcon());
             mLabelName.setText(getModel().getName());
         }
@@ -127,7 +134,7 @@ public class CategoryThumbnail extends AbstractComponentProvider<Category>
 
     @Override
     public void mouseUp(MouseEvent mouseEvent) {
-        mParent.onCategoryClicked(getModel());
+        mParent.onCategoryClicked(getModel(), mFormat);
     }
 
     private void onMouseEnter() {
@@ -136,7 +143,7 @@ public class CategoryThumbnail extends AbstractComponentProvider<Category>
     }
 
     private void onMouseExit() {
-        if (mLastClicked != null && mLastClicked.equals(getModel())) {
+        if (isCategoryEquals(mLastClicked) || isFormatEquals(mLastFormat)) {
             onMouseEnter();
         } else {
             changeColor(240, 240, 240,
@@ -163,12 +170,27 @@ public class CategoryThumbnail extends AbstractComponentProvider<Category>
     }
 
     @Override
-    public void onCategoryClicked(Category category) {
-        mLastClicked = category;
-        if (getModel() != null && getModel().equals(category)) {
+    public void onCategoryClicked(@Nullable Category category, @Nullable Format format) {
+        if (category != null) {
+            mLastClicked = category;
+        }
+        if (format != null) {
+            mLastFormat = format;
+        }
+        if (isCategoryEquals(category) || isFormatEquals(format)) {
             onMouseEnter();
         } else {
             onMouseExit();
         }
     }
+
+    private boolean isFormatEquals(@Nullable Format format) {
+        return format != null && format.equals(mFormat);
+    }
+
+    private boolean isCategoryEquals(@Nullable Category category) {
+        return category != null && category.equals(getModel());
+    }
+
+
 }

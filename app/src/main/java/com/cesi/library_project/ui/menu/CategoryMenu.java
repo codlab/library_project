@@ -7,6 +7,7 @@ import com.cesi.library_project.providers.ui.AbstractComponentProvider;
 import com.cesi.library_project.providers.ui.category.CategoryThumbnail;
 import com.cesi.library_project.ui.DisplayController;
 import com.cesi.library_project.ui.IComponentProvider;
+import com.cesi.library_project.ui.format.Format;
 import com.cesi.library_project.ui.listeners.ICategoryClicked;
 import com.cesi.library_project.ui.scroll.ScrollContent;
 import com.cesi.library_project.ui.test.MainAreaContent;
@@ -37,6 +38,8 @@ public class CategoryMenu implements IComponentProvider, ICategoryClicked {
     private ArrayList<CategoryThumbnail> mCategoriesItem;
     private MainAreaContent mParent;
     private ScrollContent mScrollProvider;
+    private Category mLastCategory;
+    private Format mLastFormat;
 
     public CategoryMenu(@NotNull MainAreaContent parent) {
         mParent = parent;
@@ -104,8 +107,30 @@ public class CategoryMenu implements IComponentProvider, ICategoryClicked {
             item.implement(mComposite);
         }
 
-        Label separator = new Label(mComposite, SWT.HORIZONTAL | SWT.SEPARATOR);
-        separator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        temp_composite = new Composite(mComposite, SWT.NONE);
+        layout = new RowLayout(SWT.VERTICAL);
+        layout.marginTop = 12;
+        layout.marginBottom = layout.marginLeft = 6;
+        temp_composite.setLayout(layout);
+
+        Label display_format = new Label(temp_composite, SWT.NONE);
+        display_format.setText("Display format");
+        display_format.setForeground(DisplayController.getInstance()
+                .getColor(120, 120, 120));
+
+        CategoryThumbnail[] formats = new CategoryThumbnail[]{
+                new CategoryThumbnail("Thumbnail", Format.THUMBNAIL),
+                new CategoryThumbnail("List", Format.LIST)
+        };
+
+
+        for (CategoryThumbnail category : formats) {
+            category.setCategoryParent(this);
+            mCategoriesItem.add(category);
+            category.implement(mComposite);
+        }
+
+
     }
 
     /**
@@ -119,11 +144,19 @@ public class CategoryMenu implements IComponentProvider, ICategoryClicked {
     }
 
     @Override
-    public void onCategoryClicked(Category category) {
-        mParent.onCategoryClicked(category);
+    public void onCategoryClicked(@Nullable Category category, @Nullable Format format) {
+        if (category != null) {
+            mLastCategory = category;
+        }
+
+        if (format != null) {
+            mLastFormat = format;
+        }
+
+        mParent.onCategoryClicked(mLastCategory, mLastFormat);
 
         for (CategoryThumbnail item : mCategoriesItem) {
-            item.onCategoryClicked(category);
+            item.onCategoryClicked(mLastCategory, mLastFormat);
         }
     }
 }
