@@ -86,7 +86,7 @@ public class CategoryTableContent implements IComponentProvider, AbstractControl
             if(columnNames != null) {
                 JTable table = new JTable(data, columnNames);
                 frame.add(table);
-                frame.add(new JPanel())
+                frame.add(new JPanel());
             }
         }
     }
