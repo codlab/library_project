@@ -34,10 +34,10 @@ public class Category implements IIdSetter, ICategory {
         return erasable;
     }
 
+    @Override
     public String getName() {
         return name;
     }
-
 
     @NotNull
     @Override

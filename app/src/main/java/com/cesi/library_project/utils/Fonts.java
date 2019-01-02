@@ -5,7 +5,6 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
 
-import java.io.InputStream;
 import java.util.HashMap;
 
 public class Fonts {

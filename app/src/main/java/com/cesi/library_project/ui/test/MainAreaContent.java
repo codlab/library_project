@@ -11,7 +11,6 @@ import com.cesi.library_project.ui.menu.CategoryMenu;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.widgets.Composite;
 import org.jetbrains.annotations.Nullable;
 

@@ -1,10 +1,7 @@
 package com.cesi.library_project.providers;
 
-import com.cesi.library_project.database.controllers.FilmController;
 import com.cesi.library_project.database.controllers.MusicController;
-import com.cesi.library_project.database.models.Film;
 import com.cesi.library_project.database.models.Music;
-import com.cesi.library_project.providers.ui.film.FilmThumbnail;
 import com.cesi.library_project.providers.ui.music.MusicForm;
 import com.cesi.library_project.providers.ui.music.MusicThumbnail;
 

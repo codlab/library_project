@@ -1,10 +1,7 @@
 package com.cesi.library_project.providers;
 
-import com.cesi.library_project.database.controllers.AbstractController;
 import com.cesi.library_project.database.controllers.CategoryController;
 import com.cesi.library_project.database.models.Category;
-import com.cesi.library_project.database.models.IIdSetter;
-import com.cesi.library_project.providers.ui.AbstractComponentProvider;
 import com.cesi.library_project.providers.ui.category.CategoryThumbnail;
 
 //TODO create CategoryForm and replace in modify/create

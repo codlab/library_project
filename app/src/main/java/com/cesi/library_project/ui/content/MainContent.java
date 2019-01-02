@@ -6,16 +6,11 @@ import com.cesi.library_project.ui.IComponentProvider;
 import com.cesi.library_project.ui.format.Format;
 import com.cesi.library_project.ui.listeners.ICategoryClicked;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.awt.SWT_AWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 
 public class MainContent implements IComponentProvider, ICategoryClicked {
 

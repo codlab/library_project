@@ -1,6 +1,5 @@
 package com.cesi.library_project.providers.ui.music;
 
-import com.cesi.library_project.database.models.Film;
 import com.cesi.library_project.database.models.Music;
 import com.cesi.library_project.providers.ui.AbstractComponentProvider;
 import com.cesi.library_project.ui.DisplayController;

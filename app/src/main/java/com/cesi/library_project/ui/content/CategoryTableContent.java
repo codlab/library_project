@@ -11,13 +11,8 @@ import com.cesi.library_project.ui.IComponentProvider;
 import com.cesi.library_project.ui.scroll.ScrollContent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.awt.SWT_AWT;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Shell;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

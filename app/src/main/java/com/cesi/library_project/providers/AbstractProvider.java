@@ -1,10 +1,8 @@
 package com.cesi.library_project.providers;
 
 import com.cesi.library_project.database.controllers.AbstractController;
-import com.cesi.library_project.database.models.Category;
 import com.cesi.library_project.database.models.IIdSetter;
 import com.cesi.library_project.providers.ui.AbstractComponentProvider;
-import org.eclipse.swt.internal.mozilla.IIDStore;
 
 import java.util.List;
 

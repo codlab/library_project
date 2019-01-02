@@ -1,9 +1,7 @@
 package com.cesi.library_project.ui.menu;
 
-import com.cesi.library_project.database.controllers.CategoryController;
 import com.cesi.library_project.database.models.Category;
 import com.cesi.library_project.providers.Providers;
-import com.cesi.library_project.providers.ui.AbstractComponentProvider;
 import com.cesi.library_project.providers.ui.category.CategoryThumbnail;
 import com.cesi.library_project.ui.DisplayController;
 import com.cesi.library_project.ui.IComponentProvider;
@@ -11,11 +9,7 @@ import com.cesi.library_project.ui.format.Format;
 import com.cesi.library_project.ui.listeners.ICategoryClicked;
 import com.cesi.library_project.ui.scroll.ScrollContent;
 import com.cesi.library_project.ui.test.MainAreaContent;
-import com.cesi.library_project.utils.Fonts;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -24,7 +18,6 @@ import org.eclipse.swt.widgets.Label;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.xml.ws.Provider;
 import java.util.ArrayList;
 import java.util.List;
 

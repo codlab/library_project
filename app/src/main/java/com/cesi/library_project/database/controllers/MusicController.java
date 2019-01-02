@@ -1,7 +1,6 @@
 package com.cesi.library_project.database.controllers;
 
 import com.cesi.library_project.database.db.LibraryDatabase;
-import com.cesi.library_project.database.models.Film;
 import com.cesi.library_project.database.models.Music;
 import com.sun.istack.internal.NotNull;
 import za.co.neilson.sqlite.orm.ObjectModel;
