@@ -1,5 +1,6 @@
-package com.cesi.library_project.database.models_custom;
+package com.cesi.customProject.database.models_custom;
 
+import com.cesi.library_project.database.models.IIdSetter;
 import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
 import java.util.Date;
@@ -23,9 +24,9 @@ public class Oeuvre implements IIdSetter {
 
     private int nb_pages_o;
 
-    private int id_g;
+    private int id_genre;
 
-    private int id_s;
+    private int id_support;
 
     private int id_orig;
 
@@ -44,7 +45,7 @@ public class Oeuvre implements IIdSetter {
                   Date date_acq_o,
                   String duree_o,
                   int nb_pages_o,
-                  int id_g,
+                  int id_genre,
                   int id_s,
                   int id_orig,
                   int id_console,
@@ -56,11 +57,16 @@ public class Oeuvre implements IIdSetter {
         setDate_acq_o(date_acq_o);
         setDuree_o(duree_o);
         setNb_pages_o(nb_pages_o);
-        setId_g(id_g);
-        setId_s(id_s);
+        setId_genre ( id_genre );
+        setId_support (id_s);
         setId_orig(id_orig);
         setId_console(id_console);
         setId_cat(id_cat);
+    }
+
+    @Override
+    public void setId(long id) {
+        this.id_o = id;
     }
 
     @Override
@@ -78,8 +84,8 @@ public class Oeuvre implements IIdSetter {
                 getDate_acq_o(),
                 getDuree_o(),
                 getNb_pages_o(),
-                getId_g(),
-                getId_s(),
+                getId_genre (),
+                getId_support (),
                 getId_orig(),
                 getId_console(),
                 getId_cat(),
@@ -97,15 +103,14 @@ public class Oeuvre implements IIdSetter {
                 "date_acq_o",
                 "duree_o",
                 "nb_pages_o",
-                "id_g",
-                "id_s",
+                "id_genre",
+                "id_support",
                 "id_orig",
                 "id_console",
                 "id_cat"
         };
     }
 
-    @Override
     public void setId_o(long id_o) {
         this.id_o = id_o;
     }
@@ -147,7 +152,7 @@ public class Oeuvre implements IIdSetter {
     }
 
     public void setDate_acq_o(Date date_acq_o) {
-        this.comment_o = date_acq_o;
+        this.date_acq_o = date_acq_o;
     }
 
     public String getDuree_o() {
@@ -166,17 +171,17 @@ public class Oeuvre implements IIdSetter {
         this.nb_pages_o = nb_pages_o;
     }
 
-    public int getId_g() {
-        return id_g;
+    public int getId_genre() {
+        return id_genre;
     }
 
-    public void setId_g(int id_g) { this.id_g = id_g; }
+    public void setId_genre(int id_genre) { this.id_genre = id_genre; }
 
-    public int getId_s() {
-        return id_s;
+    public int getId_support() {
+        return id_support;
     }
 
-    public void setId_s(int id_s) { this.id_s = id_s; }
+    public void setId_support(int id_support) { this.id_support = id_support; }
 
     public int getId_orig() {
         return id_orig;

@@ -49,7 +49,7 @@ public class MainAreaContent implements IComponentProvider, ICategoryClicked {
         main_composite.setLayoutData(data);
         main_composite.setLayout(layout);
 
-        main_composite.setBackground(DisplayController.getInstance()
+        main_composite.setBackground( DisplayController.getInstance()
                 .getColor(200, 0, 0));
 
         //and push a menu on their right

@@ -1,9 +1,9 @@
-package com.cesi.library_project.database.models_custom;
+package com.cesi.customProject.database.models_custom;
 
 import org.jetbrains.annotations.NotNull;
 import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
-public class Categorie implements id_cat, lib_cat {
+public class Categorie {
 
     @PrimaryKey(autoIncrement = true)
     private long id_cat;
@@ -31,18 +31,18 @@ public class Categorie implements id_cat, lib_cat {
     }
 
     @NotNull
-    @Override
+    //@Override
     public String getLib_cat() {
         return lib_cat;
     }
 
     @NotNull
-    @Override
+    //@Override
     public String getIcon() {
         return icon != null ? icon : "";
     }
 
-    @Override
+    //@Override
     public void setId_cat(long id_cat) {
         this.id_cat = id_cat;
     }
@@ -51,7 +51,7 @@ public class Categorie implements id_cat, lib_cat {
         return id_cat;
     }
 
-    @Override
+    //@Override
     public Object[] toArray() {
         return new Object[]{
                 icon,
@@ -59,7 +59,7 @@ public class Categorie implements id_cat, lib_cat {
         };
     }
 
-    @Override
+    //@Override
     public String[] getColumnNames() {
         return new String[] {
                 "icon",
