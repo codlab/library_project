@@ -1,6 +1,7 @@
 package com.cesi.customProject.database.controllers;
 
 import com.cesi.customProject.database.models_custom.Categorie;
+import za.co.neilson.sqlite.orm.ObjectModel;
 
 import java.util.List;
 
@@ -37,5 +38,7 @@ public class ModelController<MODEL_CLASS> {
 
     public void delete(MODEL_CLASS categorie){
     }
+
+    public ObjectModel<MODEL_CLASS>
 
 }
