@@ -20,10 +20,21 @@ public class Categorie {
 
     public Categorie(String lib_cat, String icon, boolean erasable) {
         this();
-
         this.icon = icon;
         this.erasable = erasable;
         this.lib_cat = lib_cat;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public void setLib_cat(String lib_cat) {
+        this.lib_cat = lib_cat;
+    }
+
+    public void setErasable(boolean erasable) {
+        this.erasable = erasable;
     }
 
     public boolean isErasable() {

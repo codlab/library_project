@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Generic class which takes a class in parameters and manage all the CRUDs operations
  * <p>
- * It is mandatory to extends it using extends AbstractController<class name like Category>
+ * It is mandatory to extends it using extends ModelController<class name like Category>
  *
  * @param <A_MODEL_CLASS> the class name which will be used
  */
