@@ -4,7 +4,7 @@ import com.cesi.library_project.database.models.MetaData;
 import za.co.neilson.sqlite.orm.annotations.ForeignKey;
 import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
-public class exercer {
+public class Exercer {
     @PrimaryKey(autoIncrement = true)
     private long id_s;
 

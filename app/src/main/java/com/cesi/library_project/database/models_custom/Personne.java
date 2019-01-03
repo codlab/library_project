@@ -1,29 +1,33 @@
 package com.cesi.library_project.database.models_custom;
 
-import com.cesi.library_project.database.models.MetaData;
-import za.co.neilson.sqlite.orm.annotations.ForeignKey;
 import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
-public class personne {
+public class Personne {
     @PrimaryKey(autoIncrement = true)
-    private long id_p;
-    private String lib_p;
+    private long id_personne;
 
-    public long getId_p() {
-        return id_p;
+    public Personne(String lib_personne) {
+        this.lib_personne = lib_personne;
     }
 
-    public void setId_p(long id_p) {
-        this.id_p = id_p;
+    private String lib_personne;
+
+
+    public long getId_personne() {
+        return id_personne;
+    }
+
+    public void setId_personne(long id_personne) {
+        this.id_personne = id_personne;
     }
 
 
-    public long getLib_p() {
-        return lib_p;
+    public long getLib_personne() {
+        return lib_personne;
     }
 
-    public void setLib_p(long lib_p) {
-        this.lib_p = lib_p;
+    public void setLib_personne(String lib_personne) {
+        this.lib_personne = lib_personne;
     }
 
 
