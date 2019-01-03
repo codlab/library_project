@@ -19,6 +19,6 @@ public class Main {
     }
 
     void start() {
-        
+
     }
 }
