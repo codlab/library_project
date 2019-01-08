@@ -13,7 +13,7 @@ public class OeuvreJDBCProvider extends AbstractModelJDBCProvider<Oeuvre> {
 
     @Override
     public ObjectModel<Oeuvre, ResultSet, HashMap<String, Object>> createJDBCObject(ProjectLibraryDatabase instance) throws NoSuchFieldException, ClassNotFoundException {
-        return new JdbcObjectModel<>(instance) {
+        return new JdbcObjectModel<Oeuvre>(instance) {
         };
     }
 }

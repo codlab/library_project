@@ -13,7 +13,7 @@ public class CategoryJDBCProvider extends AbstractModelJDBCProvider<Category> {
 
     @Override
     public ObjectModel<Category, ResultSet, HashMap<String, Object>> createJDBCObject(ProjectLibraryDatabase instance) throws NoSuchFieldException, ClassNotFoundException {
-        return new JdbcObjectModel<>(instance) {
+        return new JdbcObjectModel<Category>(instance) {
         };
     }
 }
