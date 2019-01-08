@@ -7,6 +7,12 @@ import com.cesi.lighter_custom.database.models.Oeuvre;
 
 public class ProjectDatabase extends InternalProjectDatabase {
 
+    private final static ProjectDatabase INSTANCE = new ProjectDatabase();
+
+    public static ProjectDatabase getInstance() {
+        return INSTANCE;
+    }
+
     private ProjectDatabase() {
         super();
     }

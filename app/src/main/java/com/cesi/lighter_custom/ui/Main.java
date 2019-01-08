@@ -11,11 +11,11 @@ public class Main {
 
     public static void main(String[] args) {
         //we call our database initialisation
-        ProjectDatabase.init();
+        ProjectDatabase.getInstance().init();
 
         //we grab some controller just to play around
-        ModelController<Category> controller = ProjectDatabase.get(Category.class);
-        ModelController<Oeuvre> controller2 = ProjectDatabase.get(Oeuvre.class);
+        ModelController<Category> controller = ProjectDatabase.getInstance().get(Category.class);
+        ModelController<Oeuvre> controller2 = ProjectDatabase.getInstance().get(Oeuvre.class);
 
         //we create some Category in the database
         Category category = controller.create(new Category());
