@@ -21,7 +21,7 @@ public class Main {
         //we create some Category in the database
         Category category = controller.create(new Category());
         //note the fabulous name <3
-        category.setName("test");
+        //category.setName("test");
 
         //and we save it
         controller.update(category);

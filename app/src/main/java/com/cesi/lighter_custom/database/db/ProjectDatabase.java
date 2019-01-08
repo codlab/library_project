@@ -3,12 +3,10 @@ package com.cesi.lighter_custom.database.db;
 import com.cesi.lighter_custom.database.controllers.AbstractModelJDBCProvider;
 import com.cesi.lighter_custom.database.controllers.ModelController;
 import com.cesi.lighter_custom.database.controllers.jdbc.CategoryJDBCProvider;
-import com.cesi.lighter_custom.database.controllers.jdbc.OeuvreCategoryJDBCProvider;
 import com.cesi.lighter_custom.database.controllers.jdbc.OeuvreJDBCProvider;
 import com.cesi.lighter_custom.database.models.Category;
 import com.cesi.lighter_custom.database.models.Model;
 import com.cesi.lighter_custom.database.models.Oeuvre;
-import com.cesi.lighter_custom.database.models.OeuvreCategory;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -50,7 +48,7 @@ public class ProjectDatabase {
     public static void init() {
         set(Category.class, new CategoryJDBCProvider());
         set(Oeuvre.class, new OeuvreJDBCProvider());
-        set(OeuvreCategory.class, new OeuvreCategoryJDBCProvider());
+        //set(OeuvreCategory.class, new OeuvreCategoryJDBCProvider());
 
         open();
     }
