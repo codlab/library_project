@@ -2,6 +2,10 @@ package com.cesi.lighter_custom.database.models;
 
 import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
+/**
+ * How to retrieve a ModelController from the instantiated database
+ *  ModelController<a class type> controller = ProjectDatabase.getInstance().get(a class);
+ */
 public class Category implements Model {
 
     @PrimaryKey(autoIncrement = true)
@@ -26,4 +30,11 @@ public class Category implements Model {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
