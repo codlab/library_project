@@ -28,7 +28,7 @@ public class NavBarContent implements IComponentProvider {
     @Override
     public void implement(@NotNull Composite composite) {
         mComposite = new Composite(composite, SWT.NONE);
-        mComposite.setBackground(DisplayController.getInstance()
+        mComposite.setBackground( DisplayController.getInstance()
                 .getColor(240, 240, 240));
 
         GridData data = new GridData();

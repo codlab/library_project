@@ -88,7 +88,7 @@ public class CategoryMenu implements IComponentProvider, ICategoryClicked {
 
         Label title = new Label(temp_composite, SWT.NONE);
         title.setText("Main categories");
-        title.setForeground(DisplayController.getInstance()
+        title.setForeground( DisplayController.getInstance()
                 .getColor(120, 120, 120));
 
         for (Category category : list) {
